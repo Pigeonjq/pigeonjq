@@ -1,4 +1,4 @@
-# AwesomeQueue
+# PigeonJQ
 
 A Redis-backed distributed job queue service.
 
@@ -8,23 +8,23 @@ A Redis-backed distributed job queue service.
 
 1. **Build the snap:**
    ```bash
-   cd /path/to/awesomequeue
+   cd /path/to/pigeonjq
    snapcraft
    ```
 
 2. **Install locally:**
    ```bash
-   sudo snap install awesomequeue_1.0_amd64.snap --dangerous
+   sudo snap install pigeonjq_1.0_amd64.snap --dangerous
    ```
 
 3. **The service starts automatically!** Check status:
    ```bash
-   snap services awesomequeue
+   snap services pigeonjq
    ```
 
 4. **View logs:**
    ```bash
-   snap logs awesomequeue.awesomequeue -f
+   snap logs pigeonjq.pigeonjq -f
    ```
 
 **Note:** The Snap includes its own Redis server, so you don't need to install Redis separately.
@@ -33,24 +33,24 @@ A Redis-backed distributed job queue service.
 
 1. **Run the installation script:**
    ```bash
-   cd /path/to/awesomequeue
+   cd /path/to/pigeonjq
    ./install.sh
    ```
 
 2. **Enable and start the service:**
    ```bash
-   sudo systemctl enable awesomequeue
-   sudo systemctl start awesomequeue
+   sudo systemctl enable pigeonjq
+   sudo systemctl start pigeonjq
    ```
 
 3. **Check status:**
    ```bash
-   sudo systemctl status awesomequeue
+   sudo systemctl status pigeonjq
    ```
 
 4. **View logs:**
    ```bash
-   sudo journalctl -u awesomequeue -f
+   sudo journalctl -u pigeonjq -f
    ```
 
 **Note:** Redis must be installed and running separately for this option.
@@ -64,10 +64,10 @@ A Redis-backed distributed job queue service.
 
 ### For systemd service:
 
-Edit `/etc/systemd/system/awesomequeue.service` and modify the Environment variables, then reload:
+Edit `/etc/systemd/system/pigeonjq.service` and modify the Environment variables, then reload:
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl restart awesomequeue
+sudo systemctl restart pigeonjq
 ```
 
 ### For snap:
@@ -90,22 +90,22 @@ Snap uses the defaults in the snapcraft.yaml. To modify, rebuild the snap.
 
 ## CLI
 
-A command-line client (`aq`) is included for interacting with a running
-AwesomeQueue server without writing HTTP requests by hand. It talks to
-`http://localhost:11300` by default; override with the `AWESOMEQUEUE_ADDR`
-environment variable (e.g. `AWESOMEQUEUE_ADDR=http://queue.example.com:11300`).
-Once installed via the snap it's available as `awesomequeue.cli`:
+A command-line client (`pjq`) is included for interacting with a running
+PigeonJQ server without writing HTTP requests by hand. It talks to
+`http://localhost:11300` by default; override with the `PIGEONJQ_ADDR`
+environment variable (e.g. `PIGEONJQ_ADDR=http://queue.example.com:11300`).
+Once installed via the snap it's available as `pigeonjq.cli`:
 
 ```bash
-awesomequeue.cli status [--tube <tube>]              # queue status, optionally scoped to a tube
-awesomequeue.cli job-status <job_id>                 # a single job's status
-awesomequeue.cli queue <body> --tube <tube> [--priority urgent|high|medium|low]
+pigeonjq.cli status [--tube <tube>]              # queue status, optionally scoped to a tube
+pigeonjq.cli job-status <job_id>                 # a single job's status
+pigeonjq.cli queue <body> --tube <tube> [--priority urgent|high|medium|low]
                                                       # queue a job (default priority: medium)
 ```
 
 `cancel <job_id>` is registered but not yet implemented.
 
-Run `sudo snap alias awesomequeue.cli aq` for a shorter alias if you'd like
+Run `sudo snap alias pigeonjq.cli pjq` for a shorter alias if you'd like
 one.
 
 ## Development
@@ -113,8 +113,8 @@ one.
 Build the binaries:
 ```bash
 cd service
-go build -o awesomequeue-server main.go
-go build -o awesomequeue-cli ./cli
+go build -o pigeonjq-server main.go
+go build -o pigeonjq-cli ./cli
 ```
 
 Run the tests:
@@ -125,6 +125,6 @@ go test ./...
 
 Run locally:
 ```bash
-./awesomequeue-server
-./awesomequeue-cli status
+./pigeonjq-server
+./pigeonjq-cli status
 ```

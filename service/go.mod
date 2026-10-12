@@ -1,4 +1,4 @@
-module awesomequeue
+module pigeonjq
 
 go 1.25.0
 
